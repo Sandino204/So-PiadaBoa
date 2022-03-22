@@ -1,0 +1,169 @@
+openapi: 3.0.0
+info:
+  title: soPiadaBoa
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - default
+      summary: signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: sandino@gmail.com
+                password: Caio123$5
+                name: Sandino
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /auth/signin:
+    post:
+      tags:
+        - default
+      summary: signin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: sandino@gmail.com
+                password: Caio123$5
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /joke:
+    get:
+      tags:
+        - default
+      summary: get all jokes with query params
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: 'search'
+          in: header
+          schema:
+            type: string
+        - name: sort
+          in: query
+          schema:
+            type: string
+          example: desc
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - default
+      summary: create joke
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: teste 4
+                description: teste 123
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /joke/my:
+    get:
+      tags:
+        - default
+      summary: get all jokes by user token
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /joke/:id:
+    patch:
+      tags:
+        - default
+      summary: update joke description or title
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: 123 teste
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - default
+      summary: delete a joke and all votes linked
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - default
+      summary: get joke by Id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /joke/:id/like:
+    put:
+      tags:
+        - default
+      summary: like a joke
+      requestBody:
+        content: {}
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /joke/:id/dislike:
+    put:
+      tags:
+        - default
+      summary: dislike a joke
+      requestBody:
+        content: {}
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
